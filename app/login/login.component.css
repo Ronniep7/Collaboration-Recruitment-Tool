@@ -1,0 +1,46 @@
+#mainCtrl {
+    background-color: rgba(152, 162, 172, 0.32);
+  color: #DC0F0F;
+  margin-top: 10%;
+  border: 1px solid snow;
+  border-radius: 5px;
+  margin-bottom:600px; 
+  }
+ .btn 
+  {
+   box-shadow:inset 2px -3px rgba(0,0,0,0.15);
+   background-color: rgba(11, 38, 230, 0.27);
+   position: center;
+   border-radius: 10% ;
+   align-items: center;
+   
+  }
+  .btn:hover
+  {
+   box-shadow:inset 2px -3px rgba(0, 0, 0, 0.93);
+   background-color: rgba(0, 17, 144, 0.58);
+   position: center;
+   border-radius: 1% ; 
+  }
+  .form-signin-heading {
+    color: #fff;
+    text-align: center;
+    text-shadow: 3 2px 2px rgb(0, 0, 0);
+    font-weight: bold;
+    font-stretch: ultra-expanded;
+    font-family: 'Archivo Black', sans-serif;
+    
+  }
+  @font-face {
+    font-family: myFirstFont;
+    src: url(http://www.font-face.com/fonts/delicious/Delicious-Roman.otf);
+}
+
+@font-face {
+    font-family: myFirstFont;
+    src: url(http://www.font-face.com/fonts/delicious/Delicious-Roman.otf);
+    font-weight: bold;
+}
+label{
+  color: black
+}

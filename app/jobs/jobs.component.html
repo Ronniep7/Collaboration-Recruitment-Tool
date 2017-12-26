@@ -1,0 +1,46 @@
+<button id="Headline" style="margin-top:75px" title="Add new job" *ngIf="AuthService.Role" (click)="AddJobForm()" class="alert alert-info"><i class="fa fa-plus" aria-hidden="true"></i> Add New Job</button>
+<h2 *ngIf="!AuthService.Role" style="text-align:center;margin-top:75px"> Jobs </h2>
+<div *ngIf="!EditMode && !AddJob && !JobDetailsMode" class="container-fluid">
+  <div class="row">
+    <div *ngFor="let Job of Jobs| paginate: { itemsPerPage: 9, currentPage: p } ; let i = index" id="marCard" class="col-sm-4">
+      <div class="card row" (click)="ViewJobDetails(Job)">
+        <div id="boxing" class="card-content col-sm-11">
+          <div class="card-header-blue">
+            <div class="row">
+              <div>
+                <h4 class="card-heading "><span><i  class="fa fa-id-card" aria-hidden="true"></i></span> <b>{{Job.Title}}</b></h4>
+              </div>
+              <div class="col-sm-1"></div>
+            </div>
+          </div>
+          <div class="card-body">
+            <span *ngIf="Job.Recruiters.length != 0">Recruiters:</span>
+            <span *ngIf="Job.Recruiters.length == 0" style="font-weight:600;color:red">There Is No recruiters Attached <br>  <br> </span>
+            <button *ngFor="let rec of Job.Recruiters | slice : 0 : 1" type="button" class="btn btn-default btn-sm">
+                      <span class="fa fa-user"></span> {{rec.UserName}}
+                    </button> <b>{{Job.Recruiters.length > 1 ? 'and '+(Job.Recruiters.length-1)+' more' : ''}}</b>
+          </div>
+          <span style="margin: 1em;"><b> Description  :</b>{{Job.Description | slice : 0 : 100 }}{{Job.Description.length > 100 ? '...' : ''}}</span>
+        </div>
+        <div class="col-sm-1" style="margin-top:4%">
+          <i (click)="PrepareForEdit(Job)" *ngIf="AuthService.Role || CheckRelation(Job)" style="margin-right:15%" class="fa fa-pencil"
+            aria-hidden="true"></i>
+          <i (click)="archiveJob(Job)" *ngIf="AuthService.Role"  class="fa fa-trash" aria-hidden="true"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="paging">
+    <pagination-controls (pageChange)="p = $event"></pagination-controls>
+  </div>
+</div>
+<div class="row" *ngIf="(!EditMode && !AddJob && !JobDetailsMode)==false">
+  <div class="col-sm-1"></div>
+  <div class="col-sm-10">
+    <app-job-post (Appearance)="onPostingJob($event)" *ngIf="AddJob"></app-job-post>
+    <app-update-job (Appearance)="onAppearance($event)" *ngIf="EditMode && !AddJob" [JobToUpdate]="JobToEdit"> </app-update-job>
+    <Job-details class="center-block" (JobDetailsAppearance)="onAppearanceDetails($event)" [ChosenJob]="JobToView" *ngIf=" !EditMode && !AddJob && JobDetailsMode">
+    </Job-details>
+  </div>
+  <div class="col-sm-1"></div>
+</div>

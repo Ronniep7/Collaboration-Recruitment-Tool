@@ -1,0 +1,29 @@
+<div >
+    <div >
+            <div class="logo-img container">
+                <img id="log" src="/assets/img/at&t_logo2.png" />
+            </div>
+    </div>
+</div>
+<hr>
+<br/>
+
+<div class="sidebar-wrapper" style="margin-top: 60%">
+        <div id="textName">
+                <div id="textName">
+                        <b> AT&T Israel</b> <br>
+                        <b>AT&T Recruiting Tool</b> <br>
+                        <b> {{Currentuser}}</b></div>
+    <div class="nav-container">
+        <ul class="nav">
+            <ng-container *ngFor="let menuItem of menuItems">
+                <li *ngIf="menuItem.Role || AuthService.Role" routerLinkActive="active" class="{{menuItem.class}}">
+                    <a [routerLink]="[menuItem.path]">
+                    <i  class="material-icons">{{menuItem.icon}}</i>
+                    <h5>{{menuItem.title}}</h5>
+                </a>
+                </li>
+            </ng-container>
+        </ul>
+    </div>
+</div>

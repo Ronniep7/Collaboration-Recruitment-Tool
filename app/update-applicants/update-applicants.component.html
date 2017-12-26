@@ -1,0 +1,156 @@
+<div class="main-content">
+  <div class="container-fluid row">
+    <div class="col-md-2">
+    </div>
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-header" data-background-color="blue">
+          <button (click)="CloseForm()" type="button" class="close">&times;</button>
+          <span id="UploadCv" type="button" class="close" style="align-content:center;"><i class="fa fa-cloud-upload fa-2x"></i></span>
+          <h4 class="title">Update Applicant Component</h4>
+          <p class="category">Manager Component</p>
+        </div>
+        <div class="card-content">
+          <form #trvUpdateApplicant="ngForm">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group form-black ">
+                  <label class="control-label"> <span *ngIf="trvName.errors && (trvName.dirty || trvName.touched)" class="NotValid">*</span> Applicant Name</label>
+                  <input #trvName="ngModel" required type="text" name="ApplicantToUpdate.Name" [(ngModel)]="ApplicantToUpdate.Name" class="form-control">
+                </div>
+                <div *ngIf="trvName.errors && (trvName.dirty || trvName.touched)">
+                  <div class="NotValid" [hidden]="!trvName.errors.required">
+                    Applicant Name is required
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group form-black   ">
+                  <label class="control-label">Experience Needed</label>
+                  <input type="number" #trvEx="ngModel" required name="ApplicantToUpdate.Experience" min="0" [(ngModel)]="ApplicantToUpdate.Experience"
+                    class="form-control">
+                </div>
+                <div *ngIf="trvEx.errors && (trvEx.dirty || trvEx.touched)">
+                  <div class="NotValid" [hidden]="!trvEx.errors.required">
+                    Title Name is required
+                  </div>
+                  <div class="NotValid" [hidden]="!trvEx.errors.min">
+                    Must Be Above Zero
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group form-black">
+                  <label class="control-label">Email</label>
+                  <input type="text" #trvEmail="ngModel" required pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,3}$" name="ApplicantToUpdate.Email"
+                    [(ngModel)]="ApplicantToUpdate.Email" class="form-control">
+                </div>
+                <div *ngIf="trvEmail.errors && (trvEmail.dirty || trvEmail.touched)">
+                  <div class="NotValid" [hidden]="!trvEmail.errors.required">
+                    Email is required
+                  </div>
+
+                  <div class="NotValid" [hidden]="!trvEmail.errors.pattern">
+                    Email Should Be At This pattern (Example : 'Israel@gmail.com')
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group form-black">
+                  <label class="control-label">Title </label>
+                  <input #trvTitle="ngModel" required type="text" name="ApplicantToUpdate.Title" [(ngModel)]="ApplicantToUpdate.Title" class="form-control">
+                </div>
+                <div *ngIf="trvTitle.errors && (trvTitle.dirty || trvTitle.touched)">
+                  <div class="NotValid" [hidden]="!trvTitle.errors.required">
+                    Title Name is required
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group form-black   ">
+                  <label class="control-label">Phone 265</label>
+                  <input #trvPhone="ngModel" required maxlength="10" type="phone" pattern="^\+?(972|0)(\-)?0?(([23489]{1}\d{7})|[5]{1}\d{8})$"
+                    name="ApplicantToUpdate.Phone" [(ngModel)]="ApplicantToUpdate.Phone" class="form-control">
+                </div>
+                <div *ngIf="trvPhone.errors && (trvPhone.dirty || trvPhone.touched)">
+                  <div [hidden]="!trvPhone.errors.required">
+                    Phone is required
+                  </div>
+                  <div [hidden]="!trvPhone.errors.pattern">
+                    Pattern is required
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group form-black">
+                  <label class="control-label"> Position </label>
+                  <select class="form-control">
+                            <option value=""> Programmers</option>
+                            <option disabled value=""> DevOps</option>
+                            <option disabled value=""> QA</option>
+                            <option disabled value=""> Managment</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="panel panel-danger">
+                  <div class="panel-heading" data-toggle="collapse" data-target="#skil">
+                    <h3 class="panel-title"> Job Skills </h3>
+                  </div>
+                  <div id="skil" class="collapse" class="panel-body">
+                    <div class="row" style="margin:1px;">
+                      <div id="chinput" class="col-md-3" *ngFor="let item of Skills ">
+                        <input *ngIf="!CheckSkill(item)" (click)="ChangeSkill(item)" type="checkbox">
+                        <input *ngIf="CheckSkill(item)" checked (click)="ChangeSkill(item)" type="checkbox">
+                        <span id="chbox">{{ ' '+item.Name}}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="panel panel-primary">
+                  <div class="panel-heading" data-toggle="collapse" data-target="#rec">
+                    <h3 class="panel-title"> Matching Recruiters </h3>
+                  </div>
+                  <div id="rec" class="collapse" class="panel-body">
+                    <div class="row">
+                      <div class="col-md-3" style="margin:1px;" id="chbox" *ngFor="let recruiter of Recruiters ">
+                        <input type="checkbox" (click)="ChangeRecruiter(recruiter)" *ngIf="!CheckRecruiter(recruiter)">
+                        <input type="checkbox" (click)="ChangeRecruiter(recruiter)" checked *ngIf="CheckRecruiter(recruiter)">
+                        <span id="chbox">{{ ' '+recruiter.UserName}}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row ">
+              <div *ngIf="currentUpload">
+                <progress style="width:100%;color:#70d2ce;background-color:#70d2ce" class="progress is-success" min=1 max=100 value="{{ currentUpload?.progress }}"></progress>
+                Progress: {{currentUpload?.name}} | {{currentUpload?.progress}}% Complete
+              </div>
+              <div class="dropzone col-md-8 formbotton" fileDrop (filesDropped)="handleDrop($event)" (filesHovered)="dropzoneState($event)"
+                [ngClass]="{'active': dropzoneActive}"> <span class="text-center" id="Note"> For Update Drag The Applicant Resume To Here </span> <br>
+                <i id="uploadcloud" [ngClass]="{'redcloud': dropzoneActive}" class="fa fa-cloud-upload fa-2x"></i>
+              </div>
+              <div class="col-md-4">
+                <button [disabled]="!trvUpdateApplicant.valid" (click)="UpdateApplicant()" class="btn btn-danger pull-right">Update Applicant</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-2">
+    </div>
+  </div>
+</div>

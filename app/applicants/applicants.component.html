@@ -1,0 +1,42 @@
+<button *ngIf="AuthService.Role" title="Add new Applicant" style="margin-top:150px" id="Headline" (click)="AddApplicantForm()"
+  class="alert alert-info"><i class="fa fa-plus" aria-hidden="true"></i> Add New Applicant</button>
+<h2 *ngIf="!AuthService.Role" style="text-align:center;margin-top:75px"> Applicants </h2>
+<div *ngIf="!AddApplicant && !EditMode && !ApplicantDetailsMode" style="margin-top:110px" class="container-fluid">
+  <div class="row">
+    <div *ngFor="let Applicant of AllApplicants | paginate: { itemsPerPage: 9, currentPage: page } " class="col-md-4">
+      <div class="card" (click)="ViewUserDetails(Applicant)">
+        <div class="card-content">
+          <div class="card-header-blue">
+            <div class="row">
+              <div class="col-sm-2"><i style="font-size:120%;" [title]="Applicant.LockedBy!=''?'Locked By :'+Applicant.LockedBy:'' " [class]="Applicant.LockedBy!='' ?'fa fa-lock':'fa fa-unlock-alt'"
+                  aria-hidden="true"></i></div>
+              <div class="col-sm-8"></div>
+              <div class="col-sm-1"><i *ngIf="AuthService.Role" (click)="PrepareForEdit(Applicant)" style="font-size:120%;text-align:center" class="fa fa-pencil"
+                  aria-hidden="true"></i></div>
+              <div class="col-sm-1"><i *ngIf="AuthService.Role" title="To Archive" (click)="toArchive(Applicant)" style="font-size:120%;" class="fa fa-trash-o"
+                  aria-hidden="true"></i></div>
+              <div *ngIf="!AuthService.Role" class="col-sm-8"></div>
+              <div style="float:right" class="col-sm-2"><span *ngIf="!AuthService.Role" [class]="Applicant.MatchPrecentage >=0.9 ?'skiltags' :'rectags'" style="font-size:120%;text-align:center">{{PrecetageHandle(Applicant.MatchPrecentage) + '%'}}</span></div>
+            </div>
+            <div class="card-body">
+              <div>
+                <h4 class="card-heading"><span><i style="display:absolute" class="fa fa-id-card" aria-hidden="true"></i></span> <b>{{Applicant.Name}}</b></h4>
+              </div>
+            </div>
+            <div>{{Applicant.Title}}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="paging">
+    <pagination-controls (pageChange)="page = $event"></pagination-controls>
+  </div>
+</div>
+<div style="margin-top:115px">
+  <add-applicant (Appearance)="onAddApplicant($event)" *ngIf="AddApplicant"></add-applicant>
+  <app-update-applicants (Appearance)="OnAppearance($event)" *ngIf=" EditMode && !AddApplicant " [ApplicantToUpdate]="ApplicantToEdit">
+  </app-update-applicants>
+  <applicant-details (ApplicantDetailsAppearance)="OnAppearanceDetails($event)" [ChosenApplicant]="ApplicantToView" *ngIf=" !EditMode && !AddApplicant && ApplicantDetailsMode  ">
+  </applicant-details>
+</div>

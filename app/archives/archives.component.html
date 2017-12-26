@@ -1,0 +1,28 @@
+<div class="container">
+  <h1><strong>Welcome admin</strong><br/> Please select the action you want to perform</h1>
+  <div id="tabDiv" class="container">
+    <tabset style="background-color: deepskyblue">
+      <tab>
+        <span *tabHeading>
+                       <b >Applicants list</b> 
+                    </span>
+        <div class="container">
+          <br/>
+          <ng2-smart-table [settings]="settingsApp" [source]="AllApplicants"></ng2-smart-table>
+        </div>
+      </tab>
+      <tab>
+        <span *tabHeading>
+                      <b >Jobs list</b>
+                  </span>
+        <div class="container">
+        </div>
+        <div>
+          <div class="container">
+            <ng2-smart-table [settings]="settingsJob" [source]="Jobs"> ></ng2-smart-table>
+          </div>
+        </div>
+      </tab>
+    </tabset>
+  </div>
+</div>

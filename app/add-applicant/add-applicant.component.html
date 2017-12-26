@@ -1,0 +1,151 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-2">
+        </div>
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header" data-background-color="blue">
+                    <button type="button" class="close" (click)="CloseForm()" data-dismiss="modal">&times;</button>
+                    <h4 class="title">Add Applicant Position</h4>
+                    <p class="category">Manager Component</p>
+                </div>
+                <div class="card-content">
+                    <form #trvPostApplicant="ngForm">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group form-black ">
+                                    <label class="control-label"> <span *ngIf="trvName.errors && (trvName.dirty || trvName.touched)" class="NotValid">*</span> Applicant Name</label>
+                                    <input #trvName="ngModel" required type="text" name="Applicant.Name" [(ngModel)]="Applicant.Name" class="form-control">
+                                </div>
+                                <div *ngIf="trvName.errors && (trvName.dirty || trvName.touched)">
+                                    <div class="NotValid" [hidden]="!trvName.errors.required">
+                                        Applicant Name is required
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group form-black   ">
+                                    <label class="control-label"><span *ngIf="trvTitle.errors && (trvTitle.dirty || trvTitle.touched)" class="NotValid">*</span>Title </label>
+                                    <input #trvTitle="ngModel" required type="text" name="Applicant.Title" [(ngModel)]="Applicant.Title" class="form-control">
+                                </div>
+                                <div *ngIf="trvTitle.errors && (trvTitle.dirty || trvTitle.touched)">
+                                    <div class="NotValid" [hidden]="!trvTitle.errors.required">
+                                        Title Name is required
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group form-black">
+                                    <label class="control-label"><span *ngIf="trvEmail.errors && (trvEmail.dirty || trvEmail.touched)" class="NotValid">*</span>Email</label>
+                                    <input type="text" #trvEmail="ngModel" required pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,3}$" name="Applicant.Email"
+                                        [(ngModel)]="Applicant.Email" class="form-control">
+                                </div>
+                                <div *ngIf="trvEmail.errors && (trvEmail.dirty || trvEmail.touched)">
+                                    <div class="NotValid" [hidden]="!trvEmail.errors.required">
+                                        Email is required
+                                    </div>
+                                    <div class="NotValid" [hidden]="!trvEmail.errors.pattern">
+                                        Email Should Be At This pattern (Example : 'Israel@gmail.com')
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group form-black   ">
+                                    <label class="control-label">Experience Needed</label>
+                                    <input type="number" #trvEx="ngModel" required name="Applicant.Experience" min="0" [(ngModel)]="Applicant.Experience" class="form-control">
+                                </div>
+                                <div *ngIf="trvEx.errors && (trvEx.dirty || trvEx.touched)">
+                                    <div class="NotValid" [hidden]="!trvEx.errors.required">
+                                        Title Name is required
+                                    </div>
+                                    <div class="NotValid" [hidden]="!trvEx.errors.min">
+                                        Must Be Above Zero
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group form-black   ">
+                                    <label class="control-label"><span *ngIf="trvPhone.errors && (trvPhone.dirty || trvPhone.touched)" class="NotValid">*</span>Phone </label>
+                                    <input required #trvPhone="ngModel" maxlength="10" type="phone" pattern="^\+?(972|0)(\-)?0?(([23489]{1}\d{7})|[5]{1}\d{8})$"
+                                        name="Applicant.Phone" [(ngModel)]="Applicant.Phone" class="form-control">
+                                </div>
+                                <div *ngIf="trvPhone.errors && (trvPhone.dirty || trvPhone.touched)" class="NotValid">
+                                    <div [hidden]="!trvPhone.errors.required">
+                                        Phone is required
+                                    </div>
+                                    <div [hidden]="!trvPhone.errors.pattern">
+                                        Pattern is required
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group form-black">
+                                    <label class="control-label"> Position </label>
+                                    <select class="form-control">
+                            <option value=""> Programmer</option>
+                            <option disabled value=""> DevOps</option>
+                            <option disabled value=""> QA</option>
+                            <option disabled value=""> Managment</option>
+                                  </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="panel panel-danger">
+                                    <div class="panel-heading" data-toggle="collapse" data-target="#skil">
+                                        <h3 class="panel-title"> Applicant Skills </h3>
+                                    </div>
+                                    <div id="skil" class="collapse" class="panel-body">
+                                        <div class="row" style="margin:1px;">
+                                            <div id="chinput" class="col-md-3" *ngFor="let item of Skills">
+                                                <input (click)="AddSkill(item)" type="checkbox"><span id="chbox">{{ ' '+item.Name}}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="panel panel-primary">
+                                    <div class="panel-heading" data-toggle="collapse" data-target="#rec">
+                                        <h3 class="panel-title"> Matching Recruiters </h3>
+                                    </div>
+                                    <div id="rec" class="collapse" class="panel-body">
+                                        <div class="row">
+                                            <div class="col-md-3" style="margin:1px;" id="chbox" *ngFor="let recruiter of Recruiters">
+                                                <input type="checkbox" (click)="AddRecruiter(recruiter)"><span id="chbox">{{ ' '+recruiter.UserName}}</span>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row ">
+                            <div *ngIf="currentUpload">
+                                <progress style="width:100%;color:#70d2ce;background-color:#70d2ce" class="progress is-success" min=1 max=100 value="{{ currentUpload?.progress }}"></progress>
+                                Progress: {{currentUpload?.name}} | {{currentUpload?.progress}}% Complete
+                            </div>
+                            <div *ngIf="!currentUpload" class="dropzone col-md-8 formbotton" fileDrop (filesDropped)="handleDrop($event)" (filesHovered)="dropzoneState($event)"
+                                [ngClass]="{'active': dropzoneActive}"> <span class="text-center" id="Note">  Drag The Applicant Resume Here </span> <br>
+                                <i id="uploadcloud" [ngClass]="{'redcloud': dropzoneActive}" class="fa fa-cloud-upload fa-2x"></i>
+                            </div>
+                            <div class="col-md-4">
+                                <button [disabled]="!trvPostApplicant.valid" (click)="PostApplicant()" class="btn btn-danger pull-right">Add Applicant</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2">
+        </div>
+
+    </div>
+</div>

@@ -1,0 +1,67 @@
+<div class="containerdiv">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="">
+          <div class="col-sm-10">
+            <div class="panel panel-default">
+              <div class="panel-heading ">
+                <div class="row">
+                  <div class="col-sm-10">
+                    <h1> Interview Summery </h1>
+                  </div>
+                  <div class="col-sm-2">
+                    <span class="pull-right" (click)="closeForm()"><i class="fa fa-window-close" aria-hidden="true"></i></span>
+                  </div>
+                </div>
+              </div>
+              <form #Form="ngForm">
+                <div class="panel-body">
+                  <div class="row">
+                    <span class="col-sm-6"><i class="fa fa-user blue">  {{Applicant.Name}} </i></span>
+                    <span class="col-sm-6"><i class="glyphicon glyphicon-envelope blue"> {{Applicant.Email}}</i></span>
+                  </div>
+                  <div class="row">
+                    <span class="col-sm-6"><i class="fa fa-universal-access"> {{Applicant.Title}}</i></span>
+                    <span class="col-sm-6"><i class="fa fa-phone blue"> {{Applicant.Phone}}</i></span>
+                  </div>
+                  <hr/>
+                  <div class="row">
+                    <div class="col-sm-10">
+                      <span><i class="fa fa-pencil blue">Summary</i></span>
+                      <span *ngIf="Content.errors && (Content.dirty || Content.touched)">
+             <span class="NotValid" [hidden]="!Content.errors.required">
+            <b> * </b>  Thia field is required
+            </span>
+                      <span class="NotValid" [hidden]="!Content.errors.minlength">
+            <b> * </b>  10 characters are  required
+            </span>
+                      </span>
+                      <textarea #Content="ngModel" name="review.Content" minlength="15" required [(ngModel)]="review.Content" class="form-control"
+                        type="text">{{review.Content}}</textarea>
+                    </div>
+                    <div class="col-sm-2">
+                      <div class="row">
+                        <button style="margin-top:26%" (click)="review.Status ='Fail'" class="col-sm-12" [class]="review.Status =='Fail'?'btn btn-danger':'btn btn-active'"> Fail </button>
+                        <button (click)="review.Status ='Pass'" class="col-sm-12" [class]="review.Status =='Pass'?'btn btn-success':'btn btn-active'"> Pass </button>
+                        <button (click)="review.Status ='N/A'" class="col-sm-12" [class]="review.Status =='N/A'?'btn btn-warning':'btn btn-active'"> N/A </button>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-4"></div>
+                    <div class="col-sm-4">
+                      <button class="btn btn-info pull-right" [disabled]="!Form.valid" (click)="PostSummary()">Send <span class="fa fa-send"></span></button>
+                      <span *ngIf="StatusError" class="NotValid "> Choose Applicant Status </span>
+                    </div>
+                    <div class="col-sm-4"></div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

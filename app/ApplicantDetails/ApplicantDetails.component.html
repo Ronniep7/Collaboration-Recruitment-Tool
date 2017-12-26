@@ -1,0 +1,51 @@
+<div class="container">
+    <div class="row">
+        <div *ngIf="!Resume" class="col-md-6 col-lg-12">
+            <div class="well profile">
+                <div class="col-sm-12">
+                    <div class="col-xs-12 col-sm-8">
+                        <h2>{{ChosenApplicant.Name}}</h2>
+                        <p><strong>Title : </strong> {{ChosenApplicant.Title}}. </p>
+                        <p><strong>Position : </strong> {{ChosenApplicant.Position}}. </p>
+                        <p *ngIf="ChosenApplicant.LockedBy==''||AuthService.Role||ChosenApplicant.LockedBy==UserOn"><strong>Email : </strong> {{ChosenApplicant.Email}}. </p>
+                        <strong>Skills : {{ChosenApplicant.Skills.length}}</strong>
+                        <p><span class="skiltags" *ngFor="let skil of ChosenApplicant.Skills">{{skil.Name}}                        
+                        </span> </p>
+                        <strong>Recriuiters Attached to this Applicant  </strong>
+                        <p *ngIf="ChosenApplicant.Recruiters.length>=1"><span class="rectags" *ngFor="let recruiter of ChosenApplicant.Recruiters">{{recruiter.UserName}}                        
+                        </span> </p>
+                        <p *ngIf="ChosenApplicant.Recruiters.length==0"><span>Non                       
+                        </span> </p>
+                        <p><strong> Expirience : </strong> {{ChosenApplicant.Experience<=0 ? 'Non Expirience' : ChosenApplicant.Experience + ' Years Of Experience'}} </p>
+                        <p *ngIf="ChosenApplicant.LockedBy==''||AuthService.Role||ChosenApplicant.LockedBy==UserOn"><strong> Phone Number : </strong> {{ChosenApplicant.Phone}} </p>
+                    </div>
+                    <div class="col-xs-12 col-sm-4 text-center">
+                        <figure>
+                            <figcaption class="ratings">
+                                <p *ngIf="!(ChosenApplicant.LockedBy==UserOn)">{{ChosenApplicant.LockedBy==''? 'Not Locked Yet ..':'Locked By : '+ChosenApplicant.LockedBy}}
+                                </p>
+                                <p *ngIf="ChosenApplicant.LockedBy==UserOn"> Locked By You </p>
+                            </figcaption>
+                        </figure>
+                    </div>
+                </div>
+                <div class="col-xs-12 divider text-center">
+                    <div class="col-xs-12 col-sm-4">
+
+                        <button class="btn btn-success btn-block" [disabled]="!(ChosenApplicant.LockedBy==''||AuthService.Role||ChosenApplicant.LockedBy==UserOn) "><a class="fa fa-file" [attr.href]="ChosenApplicant.Url"> </a> Download Resume </button>
+                    </div>
+                    <div class="col-xs-12 col-sm-4 ">
+                        <button (click)="closeCard()" class="btn btn-danger btn-block"><span class="fa fa-user"></span> Back to Applicants </button>
+                    </div>
+                    <div class="col-xs-12 col-sm-4">
+                        <div class="btn-group dropup btn-block">
+                            <button type="button" *ngIf="!AuthService.Role &&  !(ChosenApplicant.LockedBy==UserOn)" class="btn btn-primary" (click)="LockApplicant()"><span class="fa fa-lock"></span>Lock This Applicant For an Interview </button>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<app-interview-summery (Appearance)="OnAppearance($event)" *ngIf=" summaryMode && !AddApplicant" [Applicant]="ApplicantToView"></app-interview-summery>

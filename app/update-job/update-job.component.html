@@ -1,0 +1,101 @@
+<div class="main-content">
+  <div class="container-fluid row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-header" data-background-color="blue">
+          <button (click)="CloseForm()" type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="title">Update Job Component</h4>
+          <p class="category">Manager Component</p>
+        </div>
+        <div class="card-content">
+          <form>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group form-black ">
+                  <label class="control-label">Title </label>
+                  <input type="text" name="JobToUpdate.Title" [(ngModel)]="JobToUpdate.Title" class="form-control">
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group form-black ">
+                  <label class="control-label">Experience Needed</label>
+                  <input type="number" name="JobToUpdate.Experience" min="0" [(ngModel)]="JobToUpdate.Experience" class="form-control">
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                  <div class="form-group form-black">
+                      <label class="control-label"> Position </label>
+                      <select class="form-control">
+              <option value=""> Programmer</option>
+              <option disabled value=""> DevOps</option>
+              <option disabled value=""> QA</option>
+              <option disabled value=""> Managment</option>
+                    </select>
+                  </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="panel panel-danger">
+                  <div class="panel-heading" data-toggle="collapse" data-target="#skil">
+                    <h3 class="panel-title"> Job Skills </h3>
+                  </div>
+                  <div id="skil" class="collapse" class="panel-body">
+                    <div class="row" style="margin:1px;">
+
+                      <div id="chinput" class="col-md-3" *ngFor="let item of Skills">
+                        <input *ngIf="!CheckSkill(item)" (click)="AddSkill(item)" type="checkbox"><span *ngIf="!CheckSkill(item)"
+                          id="chbox">{{ ' '+item.Name}}</span>
+
+                        <input *ngIf="CheckSkill(item)" checked (click)="AddSkill(item)" type="checkbox"><span *ngIf="CheckSkill(item)"
+                          id="chbox">{{ ' '+item.Name}}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="panel panel-primary">
+                  <div class="panel-heading" data-toggle="collapse" data-target="#rec">
+                    <h3 class="panel-title"> Matching Recruiters </h3>
+                  </div>
+                  <div id="rec" class="collapse" class="panel-body">
+                    <div class="row">
+                      <div class="col-md-3" style="margin:1px;" id="chbox" *ngFor="let recruiter of Recruiters">
+                        <input type="checkbox" (click)="AddRecruiter(recruiter)" *ngIf="!CheckRecruiter(recruiter)">
+                        <span
+                          id="chbox" *ngIf="!CheckRecruiter(recruiter)">{{ ' '+recruiter.UserName}}</span>
+                          <input type="checkbox" (click)="AddRecruiter(recruiter)" checked *ngIf="CheckRecruiter(recruiter)">
+                          <span
+                            id="chbox" *ngIf="CheckRecruiter(recruiter)">{{ ' '+recruiter.UserName}}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <div class="form-group form-black ">
+                    <label class="control-label"> Job Description</label>
+                    <textarea name="JobToUpdate.Description" [(ngModel)]="JobToUpdate.Description" class="form-control" rows="5"></textarea>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <i *ngIf="saving" class="fa fa-spinner fa-pulse fa-fw" style="color:#E8423F"></i>
+            <button (click)="PostJobToUpdate()" class="btn btn-danger pull-right">Update Job</button>
+            <div class="clearfix"></div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-2"></div>
+  </div>
+</div>

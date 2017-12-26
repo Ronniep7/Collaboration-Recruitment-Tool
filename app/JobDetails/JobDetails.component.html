@@ -1,0 +1,34 @@
+<div class="container">
+    <div class="row">
+        <div *ngIf="!Resume" class="col-md-6 col-lg-12">
+            <div class="well profile">
+                <div class="col-sm-12">
+                    <div class="col-xs-12 col-sm-8">
+                        <h2> {{ChosenJob.Title}}</h2>
+                        <p><strong>Title : </strong> {{ChosenJob.Title}} </p>
+                        <p><strong>Position : </strong> {{ChosenJob.Position}}. </p>
+                        <p *ngIf="ChosenJob.LockedBy==''||AuthService.Role||ChosenJob.LockedBy==UserOn"><strong>Email : </strong> </p>
+                        <strong>Skills : </strong>
+                        <p><span class="tagskil" *ngFor="let skil of ChosenJob.Skills;let i=index">{{skil.Name}}                        
+                        </span> </p>
+                        <strong>Recruiters : </strong>
+                        <p><span class="tagrec" *ngFor="let skil of ChosenJob.Recruiters;let i=index">{{skil.UserName}}                        
+                        </span> </p>
+                        <p><strong> Expirience : </strong> {{ChosenJob.Experience == 0 ? 'Non Expirience Needed' : ChosenJob.Experience
+                            + ' Years Of Experience Needed'}} </p>
+                    </div>
+                    <div class="col-xs-12 col-sm-4">
+                        <i class="fa fa-window-close" aria-hidden="true" (click)="CloseCard()"></i>
+                        <figure>
+                            <p style="margin-top:32%"><strong>Description : </strong> {{ChosenJob.Description}}. </p>
+                        </figure>
+                    </div>
+                </div>
+                <div class="col-xs-12 divider text-center">
+                    <div class="col-xs-12 col-sm-4">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,32 @@
+:host /deep/ ng2-smart-table {
+    font-size: 18px;
+    color: rgba(4, 61, 237, 0.91)
+}
+:host /deep/ ng2-smart-table tbody  { 
+	text-align: left; 
+    background-color:rgba(21, 0, 250, 0.17);  
+    border-bottom-color:  #111111;
+    font-size: 18px;     
+         border: 1px solid #111111;
+         background-color:rgba(255, 255, 255, 0.67);  
+         
+}
+:host /deep/ ng2-smart-table tbody>tr>td  { 
+      border: 1px solid #111111;
+    
+}
+:host /deep/ ng2-smart-table tbody>tr>td:first-child  { 
+	text-align: left; 
+    background-color:rgba(21, 0, 250, 0.17);  
+    border-bottom-color:  #111111;
+    font-size: 20px;
+    color: #111111;
+    font-weight: bold
+        
+}
+:host /deep/ ul.ng2-smart-pagination {
+    align-items: center;
+    margin-left: 200%;
+    margin-right: 50%;
+    
+}
